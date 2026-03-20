@@ -1,0 +1,127 @@
+import { Reveal } from '../hooks/useReveal'
+
+const problems = [
+  {
+    code: 'ERR_01',
+    title: 'Commissioni che mangiano il margine',
+    description: 'Ogni ordine Glovo ti costa tra il 25% e il 35%. Senza un sistema, stai lavorando per la piattaforma, non per te.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <line x1="12" y1="1" x2="12" y2="23" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+    ),
+    gradient: 'from-flame-400 to-amber-400',
+    bg: 'bg-flame-500/[0.06]',
+    border: 'border-flame-500/15',
+    hoverBorder: 'hover:border-flame-500/30',
+    stat: '-32%',
+    statLabel: 'margine perso medio',
+  },
+  {
+    code: 'ERR_02',
+    title: 'Ritardi non rimborsati',
+    description: 'I rider arrivano tardi, il cliente valuta male, ma il rimborso non lo chiedi mai perché non sai come documentarlo.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10" />
+        <polyline points="12 6 12 12 16 14" />
+      </svg>
+    ),
+    gradient: 'from-sky-400 to-blue-400',
+    bg: 'bg-sky-500/[0.06]',
+    border: 'border-sky-500/15',
+    hoverBorder: 'hover:border-sky-500/30',
+    stat: '€2K+',
+    statLabel: 'lasciati sul tavolo / anno',
+  },
+  {
+    code: 'ERR_03',
+    title: 'Visibilità zero sui dati',
+    description: 'Non sai quali giorni rendi di più, quale prodotto brucia food cost, quale location performa. Gestisci a sensazione.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+        <line x1="1" y1="1" x2="23" y2="23" />
+      </svg>
+    ),
+    gradient: 'from-violet-400 to-purple-400',
+    bg: 'bg-violet-500/[0.06]',
+    border: 'border-violet-500/15',
+    hoverBorder: 'hover:border-violet-500/30',
+    stat: '0%',
+    statLabel: 'visibilità sui margini',
+  },
+  {
+    code: 'ERR_04',
+    title: 'Dipendenza totale dalla piattaforma',
+    description: 'Ranking, visibilità, promozioni: non controlli nulla. Un cambiamento di algoritmo ti spazza via le revenue in 24 ore.',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    ),
+    gradient: 'from-rose-400 to-pink-400',
+    bg: 'bg-rose-500/[0.06]',
+    border: 'border-rose-500/15',
+    hoverBorder: 'hover:border-rose-500/30',
+    stat: '24h',
+    statLabel: 'per perdere tutto',
+  },
+]
+
+export default function Features() {
+  return (
+    <section id="problemi" className="relative section-padding">
+      <div className="absolute inset-0">
+      </div>
+ 
+      <div className="relative max-w-7xl mx-auto">
+        {/* Header */}
+        <Reveal className="text-center mb-12 sm:mb-16">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-flame-500/[0.08] border border-flame-500/15 text-flame-400 text-xs sm:text-sm font-mono mb-5">
+            // Riconosci questi problemi?
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+            Il delivery fa i soldi.{' '}
+            <span className="bg-gradient-to-r from-flame-400 to-amber-400 bg-clip-text text-transparent">Non sempre i tuoi.</span>
+          </h2>
+          <p className="mt-4 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto">
+            Questi sono i 4 problemi che vediamo in ogni locale. Se anche uno ti suona familiare, stai lasciando soldi sul tavolo.
+          </p>
+        </Reveal>
+ 
+        {/* Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          {problems.map((problem, i) => (
+            <Reveal
+              key={i}
+              delay={i + 1}
+              className={`group relative rounded-[2rem] ${problem.bg} border ${problem.border} ${problem.hoverBorder} p-7 sm:p-8 hover:bg-white/[0.02] transition-[background-color,border-color,transform] duration-400 hover:-translate-y-1 overflow-hidden`}
+            >
+              <div className={`absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br ${problem.gradient} opacity-0 group-hover:opacity-[0.06] rounded-full blur-[60px] transition-opacity duration-500`} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br ${problem.gradient} flex items-center justify-center text-white shadow-lg transition-transform duration-300 group-hover:scale-105`}>
+                      {problem.icon}
+                    </div>
+                    <span className="text-[10px] font-mono text-slate-600 tracking-widest uppercase">{problem.code}</span>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-base sm:text-lg font-bold text-white/80 font-mono tracking-tight">{problem.stat}</p>
+                    <p className="text-[9px] text-slate-600 font-mono tracking-wide uppercase">{problem.statLabel}</p>
+                  </div>
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">{problem.title}</h3>
+                <p className="text-sm sm:text-[15px] text-slate-400 leading-relaxed">{problem.description}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

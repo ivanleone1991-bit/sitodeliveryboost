@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #0a0e1a;
+  --color-navy-900: #0f1629;
+  --color-navy-800: #151d38;
+  --color-navy-700: #1e2a4a;
+  --color-navy-600: #2a3a62;
+  --color-flame-50: #fff7ed;
+  --color-flame-100: #ffedd5;
+  --color-flame-200: #fed7aa;
+  --color-flame-300: #fdba74;
+  --color-flame-400: #fb923c;
+  --color-flame-500: #f97316;
+  --color-flame-600: #ea580c;
+  --color-flame-700: #c2410c;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+}
+
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-navy-950);
+    color: #e2e8f0;
+  }
+
+  ::selection {
+    background-color: rgba(249, 115, 22, 0.3);
+    color: white;
+  }
+
+  /* Focus-visible ring for all interactive elements */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #fb923c;
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  /* Skip link for keyboard users */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 16px;
+    z-index: 100;
+    padding: 8px 16px;
+    background: #f97316;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    top: 16px;
+  }
+
+  /* Headings: prevent widows */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+
+  /* Anchor scroll offset for fixed navbar */
+  [id] {
+    scroll-margin-top: 80px;
+  }
+}
+
+/* Reduced motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer utilities {
+  /* Scroll-triggered reveal animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* Staggered children */
+  .stagger-children > .reveal:nth-child(1) { transition-delay: 0s; }
+  .stagger-children > .reveal:nth-child(2) { transition-delay: 0.08s; }
+  .stagger-children > .reveal:nth-child(3) { transition-delay: 0.16s; }
+  .stagger-children > .reveal:nth-child(4) { transition-delay: 0.24s; }
+  .stagger-children > .reveal:nth-child(5) { transition-delay: 0.32s; }
+  .stagger-children > .reveal:nth-child(6) { transition-delay: 0.40s; }
+  .stagger-children > .reveal:nth-child(7) { transition-delay: 0.48s; }
+
+  /* Glow effects */
+  .glow-flame {
+    box-shadow: 0 0 40px rgba(249, 115, 22, 0.15),
+                0 0 80px rgba(249, 115, 22, 0.05);
+  }
+
+  .glow-flame-strong {
+    box-shadow: 0 0 60px rgba(249, 115, 22, 0.25),
+                0 0 120px rgba(249, 115, 22, 0.08);
+  }
+
+  /* Text glow for emphasis */
+  .text-glow-flame {
+    text-shadow: 0 0 30px rgba(249, 115, 22, 0.3);
+  }
+
+  /* Responsive Padding */
+  .section-padding {
+    @apply py-16 sm:py-28 px-6;
+  }
+
+  .section-padding-large {
+    @apply py-20 sm:py-32 px-6;
+  }
+
+  /* Fluid Typography for Headings */
+  .heading-xl {
+    @apply text-4xl sm:text-5xl lg:text-[5.5rem] font-extrabold tracking-tight;
+  }
+
+  .heading-lg {
+    @apply text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight;
+  }
+
+  /* Noise texture overlay */
+  .noise::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  /* Animated gradient border */
+  @keyframes border-rotate {
+    0% { --angle: 0deg; }
+    100% { --angle: 360deg; }
+  }
+
+  /* Shimmer for CTA buttons */
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .btn-shimmer {
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Floating animation for decorative elements */
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .animate-float-delayed {
+    animation: float 6s ease-in-out infinite;
+    animation-delay: -3s;
+  }
+
+  /* Pulse ring for live indicators */
+  @keyframes pulse-ring {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
+  }
+
+  .pulse-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: inherit;
+    animation: pulse-ring 2s ease-out infinite;
+  }
+
+  /* Dashboard counter animation */
+  @keyframes count-up {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Marquee for social proof */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  /* Gradient text animation */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  .animate-gradient {
+    background-size: 200% auto;
+    animation: gradient-shift 4s ease-in-out infinite;
+  }
+}
